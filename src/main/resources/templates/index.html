@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Social Media Content Generator</title>
+    <style>
+        /* Basic styling for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Social Media Content Generator</h1>
+<form id="contentForm">
+
+    <label for="topic"></label>
+    <input type="text" id="topic" name="topic" placeholder="Tell me about the post you would like me to generate">
+
+    <button type="button" id="generatebtn" onclick="generateContent()">Generate</button>
+</form>
+
+<div id="generatedContent">
+    <!-- Generated content will be displayed here -->
+</div>
+
+</body>
+</html>
