@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.net.http.HttpHeaders;
-
 @Service
 public class OpenAiService {
 
@@ -28,13 +26,19 @@ public class OpenAiService {
     public final static double FREQUENCY_PENALTY = 0.0;
     public final static double PRESENCE_PENALTY = 0.0;
     public final static double TOP_P = 1.0;
+
+
     private final WebClient webClient;
 
-    public OpenAiService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(URL)
-                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + API_KEY)
-                .build();
+    public OpenAiService() {
+        this.webClient = WebClient.create();
     }
+
+    public OpenAiService(WebClient client) {
+        this.webClient = client;
+    }
+
+
     public String generateContent(String topic) {
         try {
             ChatCompletionRequest request = new ChatCompletionRequest();
@@ -61,19 +65,14 @@ public class OpenAiService {
                     .bodyToMono(ChatCompletionResponse.class)
                     .block();
 
-            if (response != null && !response.getChoices().isEmpty()) {
-                // Get the choice with the highest score as the generated content
-                ChatChoice bestChoice = response.getChoices().get(0);
-                String generatedContent = bestChoice.getText();
-                return generatedContent;
-            } else {
-                logger.error("Failed to generate content");
-                return "Failed to generate content";
-            }
+
         } catch (Exception e) {
             logger.error("An error occurred while sending the request to OpenAI API", e);
             return "An error occurred";
         }
+        return topic;
     }
 
+
 }
+
