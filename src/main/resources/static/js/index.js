@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function generateContent() {
         const userPrompt = document.getElementById('userprompt').value;
-        const URL = `${SERVER_URL}?userprompt=${userPrompt}`;
+        const URL = `${SERVER_URL}?topic=${userPrompt}`;
         const generatedContentDiv = document.getElementById('generatedContent');
 
         try {

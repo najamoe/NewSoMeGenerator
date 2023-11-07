@@ -17,7 +17,7 @@ public class OpenAiController {
     }
 
     @GetMapping
-    Generate generateContent(@RequestParam String userprompt) {
-        return  service.createChatCompletionRequest(userprompt, SYSTEM_MESSAGE);
+    public Generate generateContent(@RequestParam String topic) {
+        return  service.createChatCompletionRequest(topic, SYSTEM_MESSAGE);
     }
 }
