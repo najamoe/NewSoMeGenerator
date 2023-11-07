@@ -11,8 +11,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         try {
             const response = await fetch(URL).then(handleHttpErrors);
-            const content = await response.text(); // Get the response as plain text
+            const jsonResponse = await response.json(); // Get the response as JSON
+            const content = jsonResponse.answer; // Extract only the generated content
             const contentTextNode = document.createTextNode(content);
+            generatedContentDiv.innerHTML = ''; // Clear any previous content
             generatedContentDiv.appendChild(contentTextNode); // Append the content to the div
             console.log("Content generated successfully");
         } catch (e) {
@@ -30,4 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return res;
     }
+
+
+
+
+
+
 });
