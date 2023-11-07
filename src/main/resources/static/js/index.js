@@ -5,16 +5,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     async function generateContent() {
         const userPrompt = document.getElementById('userprompt').value;
-        const URL = `${SERVER_URL}?userprompt=${userPrompt}`;
+        const URL = `${SERVER_URL}?topic=${userPrompt}`;
         const generatedContentDiv = document.getElementById('generatedContent');
+        console.log("generating content function test");
 
         try {
             const response = await fetch(URL).then(handleHttpErrors);
-            const responseData = await response.json();
-            generatedContentDiv.textContent = responseData.content;
+            const content = await response.text(); // Get the response as plain text
+            const contentTextNode = document.createTextNode(content);
+            generatedContentDiv.appendChild(contentTextNode); // Append the content to the div
+            console.log("Content generated successfully");
         } catch (e) {
             generatedContentDiv.style.color = 'red';
             generatedContentDiv.innerText = e.message;
+            console.error("Error:", e);
         }
     }
 
@@ -24,6 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const msg = errorResponse.message ? errorResponse.message : 'No error details provided';
             throw new Error(msg); // Use "new" to create a new error
         }
-        return res.json();
+        return res;
     }
 });
