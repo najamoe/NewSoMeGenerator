@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const SERVER_URL = 'http://localhost:2020/api/';
+    const SERVER_URL = 'http://localhost:2020/api/generate';
 
     document.getElementById('generatebtn').addEventListener('click', generateContent);
 
     async function generateContent() {
         const userPrompt = document.getElementById('userprompt').value;
-        const URL = `${SERVER_URL}generate-content?topic=${userPrompt}`;
-
+        const URL = `${SERVER_URL}?userprompt=${userPrompt}`;
         const generatedContentDiv = document.getElementById('generatedContent');
 
         try {
             const response = await fetch(URL).then(handleHttpErrors);
-            generatedContentDiv.textContent = response.content; // Assuming the response structure contains 'content'
+            const responseData = await response.json();
+            generatedContentDiv.textContent = responseData.content;
         } catch (e) {
             generatedContentDiv.style.color = 'red';
             generatedContentDiv.innerText = e.message;

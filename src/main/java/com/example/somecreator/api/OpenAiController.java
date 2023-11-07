@@ -5,8 +5,7 @@ import com.example.somecreator.service.OpenAiService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/generate")
 public class OpenAiController {
 
     private OpenAiService service;
@@ -18,7 +17,7 @@ public class OpenAiController {
     }
 
     @GetMapping
-    Generate generateContent(@RequestParam String topic) {
-        return  service.generateContent(topic, SYSTEM_MESSAGE);
+    Generate generateContent(@RequestParam String userprompt) {
+        return  service.createChatCompletionRequest(userprompt, SYSTEM_MESSAGE);
     }
 }
