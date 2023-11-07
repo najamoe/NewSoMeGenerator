@@ -1,25 +1,29 @@
-const SERVER_URL = 'http://localhost:2020/api/';
+document.addEventListener('DOMContentLoaded', function () {
+    const SERVER_URL = 'http://localhost:2020/api/generate';
 
-document.getElementById('generatebtn').addEventListener('click', generateResponse);
+    document.getElementById('generatebtn').addEventListener('click', generateContent);
 
-async function generateResponse() {
-    const URL = `${SERVER_URL}joke?about= + ${document.getElementById('about').value}`
-    const spinner = document.getElementById('spinner1');
-    const result = document.getElementById('result');
-    result.style.color = "black";
-    try {
-        spinner.style.display = "block";
-        const response = await fetch(URL).then(handleHttpErrors)
-        document.getElementById('result').innerText = response.answer;
-        //document.getElementById('about').value = ''
-    } catch (e) {
-        result.style.color = "red";
-        result.innerText = e.message;
+    async function generateContent() {
+        const userPrompt = document.getElementById('userprompt').value;
+        const URL = `${SERVER_URL}?userprompt=${userPrompt}`;
+        const generatedContentDiv = document.getElementById('generatedContent');
+
+        try {
+            const response = await fetch(URL).then(handleHttpErrors);
+            const responseData = await response.json();
+            generatedContentDiv.textContent = responseData.content;
+        } catch (e) {
+            generatedContentDiv.style.color = 'red';
+            generatedContentDiv.innerText = e.message;
+        }
     }
-    finally {
-        spinner.style.display = "none";
+
+    async function handleHttpErrors(res) {
+        if (!res.ok) {
+            const errorResponse = await res.json();
+            const msg = errorResponse.message ? errorResponse.message : 'No error details provided';
+            throw new Error(msg); // Use "new" to create a new error
+        }
+        return res.json();
     }
-}
-
-
-
+});

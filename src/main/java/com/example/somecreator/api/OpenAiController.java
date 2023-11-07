@@ -1,14 +1,11 @@
 package com.example.somecreator.api;
 
-
+import com.example.somecreator.dto.Generate;
 import com.example.somecreator.service.OpenAiService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/generate")
 public class OpenAiController {
 
     private OpenAiService service;
@@ -19,15 +16,8 @@ public class OpenAiController {
         this.service = service;
     }
 
-    @PostMapping("/generate-content")
-    public ResponseEntity<String> generateContent(@RequestBody Map<String, String> request) {
-        String topic = request.get("topic");
-
-        // Call your OpenAI service to generate content based on the topic
-        String generatedContent = service.generateContent(topic);
-
-        // Return the generated content as a response
-        return ResponseEntity.ok(generatedContent);
+    @GetMapping
+    Generate generateContent(@RequestParam String userprompt) {
+        return  service.createChatCompletionRequest(userprompt, SYSTEM_MESSAGE);
     }
-
 }
