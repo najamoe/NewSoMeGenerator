@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const contentTextNode = document.createTextNode(content);
             generatedContentDiv.innerHTML = ''; // Clear any previous content
             generatedContentDiv.appendChild(contentTextNode); // Append the content to the div
+            generatedContentDiv.style.display = 'block'; // Display the generated content box
             console.log("Content generated successfully");
         } catch (e) {
             generatedContentDiv.style.color = 'red';
@@ -32,10 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return res;
     }
-
-
-
-
 
 
 });

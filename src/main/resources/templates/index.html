@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <title>SoMe Content Generator</title>
     <style>
 
@@ -89,6 +92,22 @@
             margin-top: 20px;
         }
 
+
+
+        .copy-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #adad98;
+            color: white;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+
+
     </style>
     <script src="../static/js/index.js"></script>
 </head>
@@ -115,9 +134,13 @@
     </div>
 
 
-    <div class="generatedContentBox" id="generatedContent">
-        <!-- Generated content will be displayed here -->
+    <div class="generatedContentBox" id="generatedContent" style="display: none;">
+
+        <!-- Initially hidden; will contain the fetched content -->
     </div>
+
+
+
 </div>
 
 <script src="../static/js/index.js"></script>
