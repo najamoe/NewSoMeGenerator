@@ -1,8 +1,8 @@
 package com.example.somecreator.service;
 
-import com.example.somecreator.dto.*;
-import com.example.somecreator.dto.ChatCompletionResponse;
 import com.example.somecreator.dto.ChatCompletionRequest;
+import com.example.somecreator.dto.ChatCompletionResponse;
+import com.example.somecreator.dto.Generate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,7 +43,32 @@ public class OpenAiService {
         request.getMessages().add(new ChatCompletionRequest.Message("user", userPrompt));
 
         ObjectMapper mapper = new ObjectMapper();
-        String json = "";
+        String json = "{\n" +
+                "    \"model\": \"gpt-3.5-turbo\",\n" +
+                "    \"messages\": [\n" +
+                "        {\n" +
+                "            \"role\": \"system\",\n" +
+                "            \"content\": \"You are an assistant that will help the user generate good texts for social media content. The user should provide the tone and topic. you will also generate the texts with correct grammar.\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"role\": \"user\",\n" +
+                "            \"content\": \"I need text for my instagram post where I'm swimming with dolphins\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"role\": \"assistant\",\n" +
+                "            \"content\": \"\\\"Feeling truly blessed as I dive into the crystal-clear waters of (location) and share this unforgettable experience with these beautiful dolphins \uD83D\uDC2C✨ It's moments like these that reaffirm my love for marine life and remind me of the incredible wonders our oceans hold. Swimming alongside these graceful creatures was like a dream come true! \uD83D\uDE0D\uD83D\uDC99 #SwimmingWithDolphins #BucketListExperience #OceanAdventures #NatureLovers #DolphinEncounter\\\"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"role\": \"assistant\",\n" +
+                "            \"content\": \"\\\"\uD83C\uDF0A✨ Jumping into a world of magic and wonder, surrounded by the joyful presence of these incredible dolphins! \uD83D\uDC2C\uD83D\uDC99 Today, I had the incredible opportunity to swim alongside these intelligent beings and witness their playful nature up close. The bond we share with the ocean and its inhabitants is truly something special. Grateful for this unforgettable experience! \uD83D\uDE4F❤\uFE0F #SwimmingWithDolphins #MagicalEncounter #OceanExploration #GratefulHeart #NatureEnthusiast\\\"\"\n" +
+                "        }\n" +
+                "    ],\n" +
+                "    \"temperature\": 1,\n" +
+                "    \"max_tokens\": 256,\n" +
+                "    \"top_p\": 1,\n" +
+                "    \"frequency_penalty\": 0,\n" +
+                "    \"presence_penalty\": 0\n" +
+                "}\n";
         try {
             json = mapper.writeValueAsString(request);
             ChatCompletionResponse response = webClient.post()

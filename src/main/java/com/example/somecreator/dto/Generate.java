@@ -24,4 +24,3 @@ public class Generate {
         this.answer = answer;
         this.messages = messages;
     }
-}
