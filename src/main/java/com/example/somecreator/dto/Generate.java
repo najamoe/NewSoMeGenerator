@@ -20,7 +20,9 @@ public class Generate {
     public Generate(String answer) {
         this.answer = answer;
     }
-    public Generate(String answer, List<Map<String,String>> messages) {
+
+    public Generate(String answer, List<Map<String, String>> messages) {
         this.answer = answer;
         this.messages = messages;
     }
+}
